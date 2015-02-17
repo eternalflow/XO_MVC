@@ -66,7 +66,7 @@ class Game:
 
     f = Field()
     player = f.X # The next turn
-    status = "_"
+    status = "_" # "_" for game that is not ended, "x" or "o" for that who won, and None for draw
 
     def move(self, key):
         if key in self.key2xy:
@@ -75,17 +75,29 @@ class Game:
 
 
     def checkwin(self):
-        for i in range(3):
+        for i in range(3): # checking cols and rows
             row = self.f.getrow(i)
             if row[0] == row[1] == row[2]:
                 return row[0]
             col = self.f.getcol(i)
             if col[0] == col[1] == col[2]:
                 return col[0]
-        for i in range(2):
+
+        for i in range(2): # checking diagonals
             diag = self.f.getdiag(i)
             if diag[0] == diag[1] == diag[2]:
                 return diag[0]
+
+        count = 0 #counting x-es and o-s
+        for i in range(3):
+            for j in range(3):
+                if self.f.cells[i][j] != "_"
+                    count += 1
+
+        if count == 9: # draw
+            return None
+        else: # in the middle of game
+            return "_"
 
 
 class IO:
