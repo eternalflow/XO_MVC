@@ -66,13 +66,27 @@ class Game:
 
     f = Field()
     player = f.X # The next turn
+    status = "_"
 
     def move(self, key):
         if key in self.key2xy:
             self.player = self.player(self.key2xy[key]) # Put the symbol on the field
+        self.status = self.checkwin()
+
 
     def checkwin(self):
-        pass
+        for i in range(3):
+            row = self.f.getrow(i)
+            if row[0] == row[1] == row[2]:
+                return row[0]
+            col = self.f.getcol(i)
+            if col[0] == col[1] == col[2]:
+                return col[0]
+        for i in range(2):
+            diag = self.f.getdiag(i)
+            if diag[0] == diag[1] == diag[2]:
+                return diag[0]
+
 
 class IO:
     pass
